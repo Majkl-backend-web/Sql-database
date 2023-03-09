@@ -53,3 +53,52 @@ WHERE CustomerID = 4;
 --delete from Suppliers
 DELETE FROM Suppliers 
 WHERE CompanyName = 'MotoGuzzi';
+
+
+CREATE TABLE Customers (
+   CustomerID INT PRIMARY KEY,
+   FirstName VARCHAR(50),
+   LastName VARCHAR(50),
+   Email VARCHAR(100)
+);
+
+CREATE TABLE Orders (
+   OrderID INT PRIMARY KEY,
+   CustomerID INT,
+   OrderDate DATETIME,
+   OrderTotal DECIMAL(10,2),
+   CONSTRAINT FK_Orders_Customers FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+CREATE TABLE Products (
+   ProductID INT PRIMARY KEY,
+   ProductName VARCHAR(100),
+   UnitPrice DECIMAL(10,2),
+   UnitsInStock INT
+);
+
+CREATE TABLE OrderDetails (
+   OrderID INT,
+   ProductID INT,
+   Quantity INT,
+   CONSTRAINT PK_OrderDetails PRIMARY KEY (OrderID, ProductID),
+   CONSTRAINT FK_OrderDetails_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+   CONSTRAINT FK_OrderDetails_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+CREATE TABLE Suppliers (
+   SupplierID INT PRIMARY KEY,
+   CompanyName VARCHAR(100),
+   ContactName VARCHAR(50),
+   ContactTitle VARCHAR(50),
+   City VARCHAR(50),
+   Country VARCHAR(50)
+);
+
+CREATE TABLE CustomerSupplier (
+  CustomerID INT,
+  SupplierID INT,
+  CONSTRAINT PK_Customer_Supplier PRIMARY KEY (CustomerID, SupplierID), 
+  CONSTRAINT FK_Customer_Supplier_Customer FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID), 
+  CONSTRAINT FK_Customer_Supplier_Supplier FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID) 
+);
