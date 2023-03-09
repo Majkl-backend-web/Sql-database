@@ -54,6 +54,40 @@ WHERE CustomerID = 4;
 DELETE FROM Suppliers 
 WHERE CompanyName = 'MotoGuzzi';
 
+--left join
+SELECT * 
+FROM Suppliers
+LEFT JOIN  Customers
+ON Suppliers.SupplierID = Customers.CustomerID;
+
+--right join
+SELECT * 
+FROM Suppliers
+RIGHT JOIN  Customers
+ON Suppliers.SupplierID = Customers.CustomerID;
+
+--inner join
+SELECT * 
+FROM Suppliers
+INNER JOIN  Customers
+ON Suppliers.SupplierID = Customers.CustomerID;
+
+--inner join
+SELECT Suppliers.SupplierID, Customers.CustomerID, Suppliers.CompanyName
+FROM Suppliers
+INNER JOIN  Customers
+ON Suppliers.SupplierID = Customers.CustomerID;
+
+--view
+CREATE VIEW CompanyNameCountry 
+AS
+SELECT CompanyName, Country
+FROM Suppliers
+WHERE Country = 'Italia';
+
+--function
+?
+
 
 CREATE TABLE Customers (
    CustomerID INT PRIMARY KEY,
