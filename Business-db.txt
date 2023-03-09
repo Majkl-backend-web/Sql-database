@@ -1,0 +1,55 @@
+--inserting values
+INSERT INTO Customers
+VALUES 
+(3,'Jake', 'Smith','oh.yeah.com'),
+(4,'Ana', 'Anic','ana@anic.com');
+
+
+--inserting multiple values
+INSERT INTO Customers
+VALUES 
+(5,'Jaka', 'Ales','jaka@ales.com'),
+(6,'Anakonda', 'Zmijic','anakonda@zmijic.com');
+
+INSERT INTO Suppliers
+VALUES
+(2,'Ducati','MonicaBelucci','Promotion','Bologna','Italia'),
+(3,'MotoGuzzi','MonicaBelucci','Promotion','Bologna','Italia'),
+(5,'Laverda','MonicaBelucci','Promotion','Bologna','Italia'),
+(6,'Yamaha','Yamamoto','Sales','Tokyo','Japan'),
+(7,'Kawasaki','Yamamoto','Sales','Tokyo','Japan'),
+(8,'Suzuki','Yamamoto','Sales','Tokyo','Japan'),
+(9,'Honda','Yamamoto','Sales','Tokyo','Japan');
+
+
+--update for multiple rows by matching Country
+UPDATE Suppliers
+SET City = 'Rome'
+WHERE Country = 'Italia';
+
+UPDATE Suppliers
+SET City = 'Bologna'
+WHERE Country = 'Italia'
+AND City = 'Rome';
+
+
+--update table
+UPDATE Customers
+SET Email = 'oh@yeah.com'
+WHERE CustomerID = 3;
+
+
+--update multiple records for column FirstName
+UPDATE Customers 
+SET FirstName = 'Alen'
+
+
+--update multiple records for whole row CustomerId = 4
+UPDATE Customers
+SET FirstName = 'Bojan', LastName = 'Bojankovic', Email = 'bojan@bojankovic.com'
+WHERE CustomerID = 4;
+
+
+--delete from Suppliers
+DELETE FROM Suppliers 
+WHERE CompanyName = 'MotoGuzzi';
