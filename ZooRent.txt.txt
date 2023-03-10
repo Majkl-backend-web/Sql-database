@@ -1,26 +1,109 @@
 CREATE TABLE Person(
-PersonId int PRIMARY KEY,
+Id int PRIMARY KEY,
 FirstName varchar(50),
 LastName varchar(50),
 Age int
 );
 
-INSERT INTO Person
-VALUES
-(1,'Lav','Lavic',20),
-(2,'Stipo','Stipic',21),
-(3,'Meho','Mehic',22),
-(4,'Ljubo','Ljubic',23),
-(5,'Glavo','Glavic',24)
-;
 
 
 CREATE TABLE Employee(
-EmployeeId int PRIMARY KEY,
-PersonId int,
+Id int PRIMARY KEY,
 WorkingAt varchar(50),
-CONSTRAINT FK_person_employee FOREIGN KEY (PersonId) REFERENCES Person(PersonId)
+CONSTRAINT FK_person_employee FOREIGN KEY (Id) REFERENCES Person(Id)
 );
+INSERT INTO Employee
+VALUES
+(1,'Timaritelj');
+
+
+CREATE TABLE Client(
+Id int PRIMARY KEY,
+TypeOfHome varchar(50),
+CONSTRAINT FK_person_client FOREIGN KEY (Id) REFERENCES Person(Id)
+);
+
+
+
+CREATE TABLE Payment(
+Id int PRIMARY KEY,
+PaymentType varchar(50),
+LengthInDays int
+);
+
+
+CREATE TABLE Animal(
+Id int PRIMARY KEY,
+AnimalName varchar(50),
+Species varchar(50),
+Age int,
+Dangerousity varchar(50),
+EmployeeId int
+CONSTRAINT FK_employee_animal FOREIGN KEY (EmployeeId) REFERENCES Employee(Id),
+);
+INSERT INTO Animal
+VALUES
+(1,'Zvonimir','Slon',1,'malo',1);
+
+
+
+
+CREATE TABLE AnimalEmployee(
+Id int PRIMARY KEY,
+AnimalId int,
+EmployeeId int,
+CONSTRAINT FK_animalEmployee_animal FOREIGN KEY (AnimalId) REFERENCES Animal(Id),
+CONSTRAINT FK_animalEmployee_employee FOREIGN KEY (EmployeeId) REFERENCES Employee(Id)
+);
+
+
+CREATE TABLE Booking(
+Id int PRIMARY KEY,
+FromDate date,
+ToDate date,
+PaymentId int,
+AnimalId int,
+ClientId int,
+CONSTRAINT FK_payment_booking FOREIGN KEY (PaymentId) REFERENCES Payment(Id),
+CONSTRAINT FK_animal_booking FOREIGN KEY (AnimalId) REFERENCES Animal(Id),
+CONSTRAINT FK_person_booking FOREIGN KEY (ClientId) REFERENCES Client(Id)
+);
+
+
+INSERT INTO Booking
+VALUES
+(1,'2022-02-01','2022-02-02',1,1,1)
+;
+INSERT INTO AnimalEmployee
+VALUES
+(1,1),
+(2,2),
+(3,3)
+;
+INSERT INTO Animal
+VALUES
+(1,'Dragan','Vidra',1,'mala',1),
+(2,'Mario','Zec',1,'mala',1),
+(3,'Zvonimir','Dabar',1,'mala',1),
+(4,'Vinko','Majmun',1,'mala',1)
+;
+INSERT INTO Payment
+VALUES
+(1,'Donacije',1),
+(2,'Donacije',2),
+(3,'Hrana',1),
+(4,'Hrana',2),
+(5,'Udomljavanje',1),
+(6,'Udomljavanje',2)
+;
+INSERT INTO Client
+VALUES
+(1,1,'Stan'),
+(2,2,'Kuca'),
+(3,3,'Kuca'),
+(4,4,'Brvnara'),
+(5,5,'Stan')
+;
 
 INSERT INTO Employee
 VALUES
@@ -31,54 +114,11 @@ VALUES
 (5,5,'Voditelj')
 ;
 
-
-CREATE TABLE Client(
-ClientId int PRIMARY KEY,
-PersonId int,
-TypeOfHome varchar(50),
-CONSTRAINT FK_person_client FOREIGN KEY (PersonId) REFERENCES Person(PersonId)
-);
-
-CREATE TABLE Payment(
-PaymentId int PRIMARY KEY,
-PaymentType varchar(50),
-LengthInDays int
-);
-INSERT INTO Payment
+INSERT INTO Person
 VALUES
-(1,'Donacije',1),
-(2,'Donacije',2),
-(3,'Hrana',1),
-(4,'Hrana',2),
-(5,'Udomljavanje',1),
-(6,'Udomljavanje',2)
+(1,'Lav','Lavic',20),
+(2,'Stipo','Stipic',21),
+(3,'Meho','Mehic',22),
+(4,'Ljubo','Ljubic',23),
+(5,'Glavo','Glavic',24)
 ;
-
-CREATE TABLE Animal(
-AnimalId int PRIMARY KEY,
-AnimalName varchar(50),
-Species varchar(50),
-Age int,
-Dangerousity varchar(50),
-EmployeeId int
-CONSTRAINT FK_employee_animal FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
-);
-
-CREATE TABLE AnimalEmployee(
-AnimalId int,
-EmployeeId int,
-CONSTRAINT FK_animalEmployee_animal FOREIGN KEY (AnimalId) REFERENCES Animal(AnimalId),
-CONSTRAINT FK_animalEmployee_employee FOREIGN KEY (EmployeeId) REFERENCES Person(PersonId)
-);
-
-CREATE TABLE Booking(
-BookingId int PRIMARY KEY,
-FromDate date,
-ToDate date,
-PaymentId int,
-AnimalId int,
-ClientId int,
-CONSTRAINT FK_payment_booking FOREIGN KEY (PaymentId) REFERENCES Payment(PaymentId),
-CONSTRAINT FK_animal_booking FOREIGN KEY (AnimalId) REFERENCES Animal(AnimalId),
-CONSTRAINT FK_person_booking FOREIGN KEY (ClientId) REFERENCES Client(ClientId)
-);
