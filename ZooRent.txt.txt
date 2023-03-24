@@ -1,5 +1,5 @@
 CREATE TABLE Person(
-Id int PRIMARY KEY,
+Id int IDENTITY(1,1) PRIMARY KEY,
 FirstName varchar(50),
 LastName varchar(50),
 Age int
@@ -8,7 +8,7 @@ Age int
 
 
 CREATE TABLE Employee(
-Id int PRIMARY KEY,
+Id int IDENTITY(1,1) PRIMARY KEY,
 WorkingAt varchar(50),
 CONSTRAINT FK_person_employee FOREIGN KEY (Id) REFERENCES Person(Id)
 );
@@ -18,7 +18,34 @@ VALUES
 
 
 CREATE TABLE Client(
-Id int PRIMARY KEY,
+Id int IDENTITY (1,1) PRIMARY KEY,
+TypeOfHome varchar(50),
+CONSTRAINT FK_person_client FOREIGN KEY (Id) REFERENCES Person(Id)
+);
+CREATE TABLE Person(
+Id int IDENTITY(1,1) PRIMARY KEY,
+FirstName varchar(50),
+LastName varchar(50),
+Age int
+);
+
+
+
+CREATE TABLE Employee(
+Id int IDENTITY(1,1) PRIMARY KEY,
+WorkingAt varchar(50),
+CONSTRAINT FK_person_employee FOREIGN KEY (Id) REFERENCES Person(Id)
+);
+INSERT INTO Employee 
+VALUES
+(1,'Timaritelj'),
+(2,'Prodavac'),
+(3,'Domar'),
+(4,'Cistac')
+
+
+CREATE TABLE Client(
+Id int IDENTITY(1,1) PRIMARY KEY,
 TypeOfHome varchar(50),
 CONSTRAINT FK_person_client FOREIGN KEY (Id) REFERENCES Person(Id)
 );
@@ -26,14 +53,14 @@ CONSTRAINT FK_person_client FOREIGN KEY (Id) REFERENCES Person(Id)
 
 
 CREATE TABLE Payment(
-Id int PRIMARY KEY,
+Id int IDENTITY(1,1) PRIMARY KEY,
 PaymentType varchar(50),
 LengthInDays int
 );
 
 
 CREATE TABLE Animal(
-Id int PRIMARY KEY,
+Id int IDENTITY(1,1) PRIMARY KEY,
 AnimalName varchar(50),
 Species varchar(50),
 Age int,
@@ -47,9 +74,8 @@ VALUES
 
 
 
-
 CREATE TABLE AnimalEmployee(
-Id int PRIMARY KEY,
+Id int IDENTITY(1,1) PRIMARY KEY,
 AnimalId int,
 EmployeeId int,
 CONSTRAINT FK_animalEmployee_animal FOREIGN KEY (AnimalId) REFERENCES Animal(Id),
@@ -58,7 +84,7 @@ CONSTRAINT FK_animalEmployee_employee FOREIGN KEY (EmployeeId) REFERENCES Employ
 
 
 CREATE TABLE Booking(
-Id int PRIMARY KEY,
+Id int IDENTITY(1,1) PRIMARY KEY,
 FromDate date,
 ToDate date,
 PaymentId int,
